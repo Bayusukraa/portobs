@@ -1,0 +1,260 @@
+#projects {
+  background: var(--bg2);
+}
+
+.pj-top {
+  margin-bottom: 56px;
+}
+
+/* ===================================
+   GRID — 2 kolom
+   =================================== */
+.pj-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+/* ===================================
+   CARD
+   =================================== */
+.pj-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: border-color 0.25s, transform 0.25s;
+}
+
+.pj-card:hover {
+  border-color: var(--ac, var(--accent));
+  transform: translateY(-4px);
+}
+
+/* ===================================
+   IMAGE AREA
+   =================================== */
+.pj-image-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: var(--bg);
+}
+
+.pj-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 1;
+}
+
+.pj-card:hover .pj-image {
+  transform: scale(1.04);
+}
+
+/* Placeholder — tampil saat gambar belum ada */
+.pj-image-placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 0;
+  background: linear-gradient(135deg,
+    rgba(255,255,255,0.02) 0%,
+    rgba(255,255,255,0.01) 100%);
+}
+
+.pj-image:not([src=""]) ~ .pj-image-placeholder {
+  display: none;
+}
+
+.pj-placeholder-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  text-align: center;
+  padding: 20px;
+}
+
+.pj-placeholder-inner span {
+  font-size: 11px;
+  color: var(--muted);
+  opacity: 0.4;
+  line-height: 1.6;
+}
+
+.pj-placeholder-inner code {
+  font-size: 10px;
+  font-family: monospace;
+  color: var(--ac, var(--accent));
+  opacity: 0.6;
+}
+
+/* Gradient overlay di atas gambar */
+.pj-image-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent 40%,
+    rgba(0,0,0,0.35) 100%
+  );
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Year badge */
+.pj-year {
+  position: absolute;
+  bottom: 12px;
+  right: 14px;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+  z-index: 3;
+  font-weight: 500;
+}
+
+/* Accent line di atas image */
+.pj-top-line {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--ac, var(--accent));
+  z-index: 4;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.pj-card:hover .pj-top-line {
+  transform: scaleX(1);
+}
+
+/* ===================================
+   BODY
+   =================================== */
+.pj-body {
+  padding: 24px 24px 20px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 8px;
+}
+
+.pj-num {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  color: var(--ac, var(--accent));
+  opacity: 0.7;
+  margin-bottom: 2px;
+}
+
+.pj-title {
+  font-family: var(--font-display);
+  font-size: 19px;
+  font-weight: 700;
+  letter-spacing: -0.4px;
+  color: var(--text);
+  margin: 0;
+  line-height: 1.25;
+}
+
+.pj-desc {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.75;
+  margin: 4px 0 0;
+  flex: 1;
+}
+
+/* Footer: tags + links */
+.pj-footer {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+
+.pj-tags {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  flex: 1;
+}
+
+.pj-tag {
+  padding: 3px 10px;
+  border-radius: 100px;
+  font-size: 11px;
+  font-weight: 500;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  background: rgba(255,255,255,0.02);
+  white-space: nowrap;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.pj-card:hover .pj-tag {
+  border-color: rgba(255,255,255,0.1);
+}
+
+.pj-links {
+  display: flex;
+  gap: 14px;
+  flex-shrink: 0;
+}
+
+.pj-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  text-decoration: none;
+  color: var(--muted);
+  transition: color 0.2s;
+  white-space: nowrap;
+}
+
+.pj-link:hover {
+  color: var(--ac, var(--accent));
+}
+
+/* ===================================
+   RESPONSIVE
+   =================================== */
+@media (max-width: 900px) {
+  .pj-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+
+@media (max-width: 640px) {
+  .pj-body {
+    padding: 20px 16px 16px;
+  }
+
+  .pj-footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+}

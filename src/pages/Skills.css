@@ -1,0 +1,328 @@
+#skills {
+  background: var(--bg);
+}
+
+/* =========================================
+   GRID
+   ========================================= */
+.sk-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.sk-grid--in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* =========================================
+   PANEL
+   ========================================= */
+.sk-panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  /* Penting: biar chart container bisa ukur lebar dirinya */
+  min-width: 0;
+}
+
+/* =========================================
+   HEADER
+   ========================================= */
+.sk-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.sk-head-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.sk-tag {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  padding: 3px 10px;
+  border-radius: 100px;
+  border: 1px solid;
+  font-family: var(--font-display);
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.sk-title {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text);
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sk-hint {
+  font-size: 11px;
+  color: var(--muted);
+  opacity: 0.4;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* =========================================
+   CHART CONTAINER
+   Kunci: width 100%, height auto via canvas
+   ========================================= */
+.sk-chart-container {
+  width: 100%;
+  /* Tidak ada height fixed — canvas menentukan tingginya sendiri */
+}
+
+/* =========================================
+   DETAIL BOX
+   ========================================= */
+.sk-detail {
+  border-top: 1px solid var(--border);
+  padding-top: 16px;
+  min-height: 88px;
+  display: flex;
+  align-items: center;
+}
+
+.sk-empty {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--muted);
+  opacity: 0.4;
+  width: 100%;
+}
+
+.sk-empty-arrow {
+  font-size: 14px;
+  animation: bob 1.5s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+@keyframes bob {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-4px); }
+}
+
+.sk-detail-content {
+  width: 100%;
+  animation: pop-in 0.2s ease;
+}
+
+@keyframes pop-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.sk-detail-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.sk-detail-name {
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.3px;
+  /* truncate jika terlalu panjang */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sk-close {
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--muted);
+  font-size: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.sk-close:hover {
+  border-color: var(--ac, var(--accent));
+  color: var(--ac, var(--accent));
+}
+
+.sk-detail-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.sk-badge {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 100px;
+  background: var(--ac-bg, rgba(255,107,53,0.08));
+  border: 1px solid var(--ac-bd, rgba(255,107,53,0.3));
+  color: var(--ac, var(--accent));
+  white-space: nowrap;
+}
+
+.sk-pct {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ac, var(--accent));
+}
+
+.sk-bar {
+  height: 3px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.sk-bar-fill {
+  height: 100%;
+  border-radius: 2px;
+  background: var(--ac, var(--accent));
+  transition: width 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.sk-desc {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.75;
+  margin: 0;
+}
+
+/* =========================================
+   RESPONSIVE — ketat & konsisten
+   ========================================= */
+
+/* Lebar kecil tapi masih 2 kolom — tablet landscape */
+@media (max-width: 1024px) and (min-width: 641px) {
+  .sk-grid {
+    gap: 16px;
+  }
+
+  .sk-panel {
+    padding: 20px;
+  }
+
+  .sk-title {
+    font-size: 16px;
+  }
+
+  .sk-hint {
+    display: none;
+  }
+}
+
+/* Mobile — 1 kolom */
+@media (max-width: 640px) {
+  .sk-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .sk-panel {
+    padding: 20px 16px;
+  }
+
+  .sk-hint {
+    display: none;
+  }
+
+  .sk-title {
+    font-size: 16px;
+  }
+
+  .sk-detail-name {
+    font-size: 15px;
+  }
+}
+
+/* =========================================
+   EXTRA SKILLS LIST
+   ========================================= */
+.sk-extra-list {
+  border-top: 1px solid var(--border);
+  padding-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sk-extra-label {
+  font-size: 10px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--muted);
+  opacity: 0.5;
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.sk-extra-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.sk-extra-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sk-extra-name {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+.sk-extra-pct {
+  font-size: 12px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.sk-extra-track {
+  height: 3px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.sk-extra-fill {
+  height: 100%;
+  border-radius: 2px;
+  transition: width 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
